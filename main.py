@@ -12,6 +12,7 @@ class HelloWorldExample:
         query = """
 CREATE
 (AppClient:Component {name: "App client"}),
+(RedisClient:Component {name: "Redis client"}),
 (Redis:Component {name: "Redis"}),
 (Mongo:Component {name: "Mongo DB"}),
 (FullAPI:Component {name: "Full info API"}),
@@ -19,10 +20,13 @@ CREATE
 (FullAPIJob:Component {name: "Full info retrieval job"}),
 (BatchAPIJob:Component {name: "Batch info retrieval job"})
 CREATE 
-(AppClient)-[:USES {description: "Checks whether info is in cache and gets it"}]->(Redis),
-(AppClient)-[:USES {description: "Gets batch info from storage"}]->(Mongo),
+(AppClient)-[:USES {description: "Checks whether info is in cache and gets it"}]->(RedisClient),
+(RedisClient)-[:USES {description: "Gets cache from Redis"}]->(Redis),
+(RedisClient)-[:USES {description: "Gets batch info from storage"}]->(Mongo),
 (AppClient)-[:USES {description: "Creates request for info retrieval"}]->(FullAPIJob),
-(AppClient)-[:USES {description: "Creates request for info retrieval"}]->(BatchAPIJob)
+(AppClient)-[:USES {description: "Creates request for info retrieval"}]->(BatchAPIJob),
+(BatchAPIJob)-[:USES {description: "Make the API request"}]->(BatchAPI),
+(FullAPIJob)-[:USES {description: "Make the API request"}]->(FullAPI)
 """
         summary = self.driver.execute_query(
             query,

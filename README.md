@@ -15,3 +15,15 @@ $ pip install -r requirements.txt
 ```shell
 $ python main.py
 ```
+
+## Notes
+
+To display the graph with Cypher, run:
+```sql
+MATCH (n) RETURN n LIMIT 25
+```
+
+To delete the whole graph, run:
+```sql
+MATCH (n) DETACH DELETE n
+```
