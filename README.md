@@ -1,4 +1,10 @@
-# Instructions to run
+# Neo4j Graph
+
+Stability metrics can be found at [instability_data.xlsx](./instability_data.xlsx) for the graph: 
+
+![graph](./graph.png)
+
+## Instructions to run locally
 
 1. Run Neo4j with Docker: 
 ```shell
